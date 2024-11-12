@@ -1,40 +1,32 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
+# SOFTWARE DEVELOPER 2 – ASSIGNMENT
+This is my take-home assignment for TV Ontario, to build a simple weather app using the OpenWeather API.
 
-## Getting Started
+For organization, I will use a story map (below) to track what functionality I wish to see in the finished product, as well as what assumptions I'm making.
 
-First, run the development server:
+## User Story Map
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### Major stories
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+| id  | *As a user, I can...*              | _So that..._                                 | Status |
+| --- | ---------------------------------- | -------------------------------------------- | ------ |
+| 1   | Input a city name.                 | I can control which report I see.            |        |
+| 2   | See the weather report for a city. | I can make appropriate decisions for my day. |        |
+### Minor stories and other outcomes
+### 1. Inputting a city
+Assumptions:
+- For ease of computation, I will assume that users can only search for Canadian cities.
+- In early development, I will be using an extremely reduced shortlist of cities, but will design the code in such a way that replacing it with a proper geocoding API request would be trivial.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+| id  | *As a user, I can...*                               | _So that..._                                                 | Status |
+| --- | --------------------------------------------------- | ------------------------------------------------------------ | ------ |
+| 1.1 | See and select relevant suggestions for city names. | I can select the desired city without typing its whole name. |        |
 
-[API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+### 2. Viewing the weather report
+Assumptions:
+- `temp_min` and `temp_max` are not relevant data to display for current weather (see [docs](https://openweathermap.org/current#min)).
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) instead of React pages.
-
-This project uses [`next/font`](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn-pages-router) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/pages/building-your-application/deploying) for more details.
+| id    | *As a user, I can...*                                                                              | _So that..._                                                                                   | Status |
+| ----- | -------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ------ |
+| 2.1   | See an informative overall summary of the weather conditions in my selected city.                  | I can get the most important information at-a-glance.                                          |        |
+| 2.1.1 | See temperature data, in Celsius, including:<br>- real temperature.<br>- "feels like" temperature. | I can access more information that is crucial for decision-making, like deciding what to wear. |        |
+| 2.1.x | See more detailed weather information.                                                             | I can access it if I so desire, and don't mind having additional data on screen.               |        |
