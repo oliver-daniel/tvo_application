@@ -1,1 +1,25 @@
 @use "@picocss/pico/scss/pico";
+
+// Main styling for the page
+main {
+  padding-block: 2rem;
+  #top-bar {
+    align-items: baseline;
+
+    h2 {
+      margin: unset;
+    }
+
+    .dropdown {
+      margin: unset;
+    }
+  }
+
+  .card {
+    min-height: 200px;
+  }
+
+  .stat {
+    border: unset;              
+  }
+}
