@@ -15,11 +15,42 @@ main {
     }
   }
 
+  #main-report {
+    span > svg {
+      --size: 60px;
+      width: var(--size);
+      height: var(--size);
+      margin: var(--pico-spacing);
+    }
+  }
+
+  #conditions {
+    font-weight: bold;
+  }
+
+  #temps,
+  #precip {
+    padding-inline-start: var(--pico-spacing);
+  }
+
+  section:not([aria-busy]) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
   .card {
     min-height: 200px;
   }
 
   .stat {
-    border: unset;              
+    border: unset;
+    margin: 0 auto;
+  }
+
+  @media screen and (max-width: 896px) {
+    .stat {
+      margin: unset;
+    }
   }
 }

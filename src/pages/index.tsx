@@ -82,17 +82,17 @@ export default function Home() {
               <>
                 <div className="grid">
                   <section>
-                    <div className="main-report">
-                      <div>
+                    <div id="main-report">
+                      <div id="conditions">
                         <Icon label={toFeatherIcon(weather.weather[0].id)} />{" "}
                         {weather.weather[0].description}
                       </div>
-                      <div>
+                      <div id="temps">
                         {fmt.temperature(weather.main.temp)} (Feels like:{" "}
                         {fmt.temperature(weather.main.feels_like)})
                       </div>
                     </div>
-                    <div className="precip">
+                    <div id="precip">
                       {weather.rain ? (
                         <Stat
                           icon="umbrella"
@@ -126,6 +126,7 @@ export default function Home() {
                     </div>
                   </section>
                 </div>
+                <hr />
                 <section id="extra-info">
                   <div className="grid">
                     {[
