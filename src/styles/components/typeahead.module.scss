@@ -1,0 +1,8 @@
+.typeahead {
+  summary {
+    display: none;
+  }
+  details > ul {
+    top: -1rem;
+  }
+}
