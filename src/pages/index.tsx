@@ -94,15 +94,17 @@ export default function Home() {
                     </div>
                     <div className="precip">
                       {weather.rain ? (
-                        <div>
-                          <Icon label="umbrella" />{" "}
-                          {fmt.precip(weather.rain["1h"])}
-                        </div>
+                        <Stat
+                          icon="umbrella"
+                          value={fmt.precip(weather.rain["1h"])}
+                          description="Rain"
+                        />
                       ) : weather.snow ? (
-                        <div>
-                          <Icon label="cloud-snow" />{" "}
-                          {fmt.precip(weather.snow["1h"])}
-                        </div>
+                        <Stat
+                          icon="cloud-snow"
+                          value={fmt.precip(weather.snow["1h"])}
+                          description="Snow"
+                        />
                       ) : null}
                     </div>
                   </section>
