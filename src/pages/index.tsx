@@ -8,6 +8,8 @@ import { fetchWeather } from "@/util/fetch-weather";
 import { useEffect, useState } from "react";
 
 import fmt from "@/util/format";
+import { toFeatherIcon } from "@/util/to-icon";
+import { Icon } from "@/components/Icon";
 
 export default function Home() {
   const [selectedCity, setSelectedCity] = useState("Toronto");
@@ -25,6 +27,7 @@ export default function Home() {
 
   useEffect(() => {
     (async () => {
+      setWeather({} as CurrentWeatherResponse);
       const weatherResult = await fetchWeather({ city_name: selectedCity });
       setWeather(weatherResult);
     })();
@@ -39,7 +42,7 @@ export default function Home() {
       dispatch(false);
     };
   return (
-    <>
+    <main>
       <div className="container">
         {/* <pre>{JSON.stringify(weather, undefined, 2)}</pre> */}
         {!weatherLoaded ? (
@@ -49,22 +52,32 @@ export default function Home() {
             <h2>
               Weather in {weather.name}, {weather.sys.country}
             </h2>
-            <div>
-              {/* TODO ICON */}
-              {weather.weather[0].description}
-            </div>
-            <div>Temperature: {fmt.temperature(weather.main.temp)}</div>
-            <div>Feels like: {fmt.temperature(weather.main.feels_like)}</div>
-            <div>Visibility: {fmt.distanceKM(weather.visibility / 1_000)}</div>
-            <div>Cloud cover: {fmt.percentage(weather.clouds.all)}</div>
-            <div>Sunrise: {fmt.time(weather.sys.sunrise)}</div>
-            <div>Sunset: {fmt.time(weather.sys.sunset)}</div>
-            {weather.rain && <div>Rain: {fmt.precip(weather.rain["1h"])}</div>}
-            {weather.snow && <div>Snow: {fmt.precip(weather.snow["1h"])}</div>}
+            <article>
+              <div>
+                <Icon label={toFeatherIcon(weather.weather[0].id)} />{" "}
+                {weather.weather[0].id}
+                {weather.weather[0].description} ({weather.weather[0].main}){" "}
+              </div>
+              <div>Temperature: {fmt.temperature(weather.main.temp)}</div>
+              <div>Feels like: {fmt.temperature(weather.main.feels_like)}</div>
+              <div>
+                Visibility: {fmt.distanceKM(weather.visibility / 1_000)}
+              </div>
+              <div>Cloud cover: {fmt.percentage(weather.clouds.all)}</div>
+              <div>Sunrise: {fmt.time(weather.sys.sunrise)}</div>
+              <div>Sunset: {fmt.time(weather.sys.sunset)}</div>
+              {weather.rain && (
+                <div>Rain: {fmt.precip(weather.rain["1h"])}</div>
+              )}
+              {weather.snow && (
+                <div>Snow: {fmt.precip(weather.snow["1h"])}</div>
+              )}
+            </article>
           </section>
         )}
 
         <Typeahead
+          placeholder="Enter a city..."
           values={cities}
           filterItemKey="name"
           renderItem={(city, i, ctx) => (
@@ -80,6 +93,6 @@ export default function Home() {
           )}
         />
       </div>
-    </>
+    </main>
   );
 }

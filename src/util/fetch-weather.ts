@@ -12,7 +12,7 @@ type Params = {
 export const fetchWeather = async ({
   city_name,
 }: Params): Promise<CurrentWeatherResponse> => {
-  await delay(3000);
+  // await delay(3000);
   const sp = new URLSearchParams({
     q: `${city_name},CA`,
     units: "metric",

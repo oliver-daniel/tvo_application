@@ -10,12 +10,13 @@ type Props<T> = {
   values: T[];
   renderItem: (item: T, i: number, ctx: RenderContext) => JSX.Element;
   filterItemKey?: keyof T;
-};
+} & React.HTMLProps<HTMLInputElement>;
 
 export const Typeahead = <ValueType,>({
   values,
   renderItem,
   filterItemKey,
+  ...props
 }: Props<ValueType>) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [inputHasFocus, setInputFocus] = useState(false);
@@ -27,6 +28,7 @@ export const Typeahead = <ValueType,>({
         ref={inputRef}
         onFocusCapture={() => setInputFocus(true)}
         onChange={(e) => setSearch(e.target.value)}
+        {...props}
       />
       <details className="dropdown" open={inputHasFocus}>
         <summary aria-haspopup="listbox" style={{ display: "none" }} />
