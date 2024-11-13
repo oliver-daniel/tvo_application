@@ -48,3 +48,14 @@ export type CurrentWeatherResponse = {
   name: string;
   cod: number;
 };
+
+export type CityGeocode = {
+  id: number;
+  name: string;
+  state: "";
+  country: string;
+  coord: {
+    lon: number;
+    lat: number;
+  };
+};

@@ -1,0 +1,32 @@
+[
+  {
+    "id": 6167865,
+    "name": "Toronto",
+    "state": "",
+    "country": "CA",
+    "coord": {
+      "lon": -79.416298,
+      "lat": 43.700111
+    }
+  },
+  {
+    "id": 6077246,
+    "name": "Montréal",
+    "state": "",
+    "country": "CA",
+    "coord": {
+      "lon": -73.68248,
+      "lat": 45.50008
+    }
+  },
+  {
+    "id": 6173331,
+    "name": "Vancouver",
+    "state": "",
+    "country": "CA",
+    "coord": {
+      "lon": -123.119339,
+      "lat": 49.24966
+    }
+  }
+]
