@@ -9,12 +9,7 @@ type Props = {
 };
 
 export const Stat = ({ icon, value, description }: Props) => (
-  <div
-    className="stat"
-    data-tooltip={description}
-    aria-label={description}
-    tabIndex={0}
-  >
-    <Icon label={icon} /> {value}
+  <div className="stat" aria-label={description}>
+    <Icon label={icon} data-tooltip={description} tabIndex={0} /> {value}
   </div>
 );

@@ -4,7 +4,7 @@ import {
 } from "@/components/Typeahead";
 import { CityGeocode, CurrentWeatherResponse } from "@/types/open-weather";
 import { fetchCitySuggestions } from "@/util/fetch-cities";
-import { fetchWeather } from "@/util/fetch-weather";
+import { ErrorResponse, fetchWeather } from "@/util/fetch-weather";
 import { useEffect, useState } from "react";
 
 import fmt from "@/util/format";
@@ -17,6 +17,7 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [weather, setWeather] = useState({} as CurrentWeatherResponse);
   const [cities, setCities] = useState([] as CityGeocode[]);
+  const [error, setError] = useState<ErrorResponse | null>(null);
 
   const weatherLoaded = Object.keys(weather).length > 0;
 
@@ -31,8 +32,13 @@ export default function Home() {
     (async () => {
       setLoading(true);
       const weatherResult = await fetchWeather({ city_name: selectedCity });
+      if ("error" in weatherResult) {
+        setError(weatherResult);
+        return;
+      }
       setWeather(weatherResult);
       setLoading(false);
+      setError(null);
     })();
   }, [selectedCity]);
 
@@ -50,7 +56,9 @@ export default function Home() {
         <section>
           <div id="top-bar" className="grid">
             <h2>
-              {loading ? (
+              {error ? (
+                "Error!"
+              ) : loading ? (
                 "Loading..."
               ) : weatherLoaded ? (
                 <>Weather in {weather.name}</>
@@ -76,7 +84,12 @@ export default function Home() {
             />
           </div>
           <article className="card">
-            {loading || !weatherLoaded ? (
+            {error ? (
+              <section className="error">
+                <p>An error occurred while loading weather data.</p>
+                <p>Please try again.</p>
+              </section>
+            ) : loading || !weatherLoaded ? (
               <section aria-busy="true" />
             ) : (
               <>
@@ -161,6 +174,10 @@ export default function Home() {
               </>
             )}
           </article>
+          <hr />
+          <small>
+            Mouse or tab over any statisic icon to see what it represents.
+          </small>
         </section>
       </div>
     </main>
