@@ -1,9 +1,12 @@
-# SOFTWARE DEVELOPER 2 – ASSIGNMENT
+# SOFTWARE DEVELOPER 2 – TECHNICAL ASSIGNMENT
 This is my take-home assignment for TV Ontario, to build a simple weather app using the OpenWeather API.
 
 Please find the latest version of the application [here](https://oliver-daniel-tvo-application.surge.sh).
 
 For organization, I will use a story map (below) to track what functionality I wish to see in the finished product, as well as what assumptions I'm making.
+
+## Running locally
+To run this application locally, make sure to supply an OpenWeather API key in a `.env` file, with the name `NEXT_PUBLIC_OW_API_KEY`.
 
 ## User Story Map
 
