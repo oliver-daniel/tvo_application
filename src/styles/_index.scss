@@ -1,13 +1,13 @@
-@use "@picocss/pico/scss/pico";
+@use "@picocss/pico/scss";
 
 // Main styling for the page
 main {
   padding-block: 4rem;
   #top-bar {
-    align-items: center;
-    margin-bottom: 2rem;
+    align-items: baseline;
+    // margin-bottom: 1rem;
 
-    * {
+    h2 {
       margin: unset;
     }
   }

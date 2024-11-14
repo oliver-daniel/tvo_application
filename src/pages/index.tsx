@@ -50,6 +50,12 @@ export default function Home() {
       setSelectedCity(city.name);
       dispatch(false);
     };
+
+  const onTypeaheadSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const input = (e.target as Node).firstChild as HTMLInputElement;
+    setSelectedCity(input.value);
+  };
   return (
     <main>
       <div className="container">
@@ -70,6 +76,7 @@ export default function Home() {
               placeholder="Enter a city..."
               values={cities}
               filterItemKey="name"
+              onSubmit={onTypeaheadSubmit}
               renderItem={(city, i, ctx) => (
                 <li key={`${city}-${i}`}>
                   <a

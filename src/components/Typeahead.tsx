@@ -1,11 +1,11 @@
 /**IMPORTANT NOTE:
  * This implementation doesn't handle keyboard-related
- * focus losss well. In the interest of time I'm going to
+ * focus loss well. In the interest of time I'm going to
  * leave it as-is, but I would be happy to discuss how I might go about
  * fixing. it.
  */
 
-import { useEffect, useRef, useState } from "react";
+import { FormEventHandler, useEffect, useRef, useState } from "react";
 import styles from "@/styles/components/typeahead.module.scss";
 
 export type RenderContext = {
@@ -17,12 +17,14 @@ type Props<T> = {
   values: T[];
   renderItem: (item: T, i: number, ctx: RenderContext) => JSX.Element;
   filterItemKey?: keyof T;
+  onSubmit?: FormEventHandler;
 } & React.HTMLProps<HTMLInputElement>;
 
 export const Typeahead = <ValueType,>({
   values,
   renderItem,
   filterItemKey,
+  onSubmit,
   ...props
 }: Props<ValueType>) => {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -47,12 +49,15 @@ export const Typeahead = <ValueType,>({
 
   return (
     <div className={styles.typeahead}>
-      <input
-        ref={inputRef}
-        onFocus={() => setInputFocus(true)}
-        onChange={(e) => setSearch(e.target.value)}
-        {...props}
-      />
+      <form onSubmit={onSubmit} role="group">
+        <input
+          ref={inputRef}
+          onFocus={() => setInputFocus(true)}
+          onChange={(e) => setSearch(e.target.value)}
+          {...props}
+        />
+        <button type="submit">Search</button>
+      </form>
       <details className="dropdown" open>
         <summary aria-haspopup="listbox" style={{ display: "none" }} />
         <ul
