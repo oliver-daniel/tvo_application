@@ -2,7 +2,7 @@
  * This implementation doesn't handle keyboard-related
  * focus loss well. In the interest of time I'm going to
  * leave it as-is, but I would be happy to discuss how I might go about
- * fixing. it.
+ * fixing it.
  */
 
 import { FormEventHandler, useEffect, useRef, useState } from "react";

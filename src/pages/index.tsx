@@ -5,12 +5,13 @@ import {
 import { CityGeocode, CurrentWeatherResponse } from "@/types/open-weather";
 import { fetchCitySuggestions } from "@/util/fetch-cities";
 import { ErrorResponse, fetchWeather } from "@/util/fetch-weather";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
-import fmt from "@/util/format";
-import { toFeatherIcon } from "@/util/to-icon";
 import { Icon } from "@/components/Icon";
 import { Stat } from "@/components/Stat";
+import fmt from "@/util/format";
+import { toFeatherIcon } from "@/util/to-icon";
+import { toStats } from "@/util/to-stats";
 
 export default function Home() {
   const [selectedCity, setSelectedCity] = useState("Toronto");
@@ -22,6 +23,7 @@ export default function Home() {
   const weatherLoaded = Object.keys(weather).length > 0;
 
   useEffect(() => {
+    // load cities for typeahead
     (async () => {
       const citySuggestions = await fetchCitySuggestions();
       setCities(citySuggestions);
@@ -29,6 +31,7 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
+    // when the selected city changes, re-fetch the weather
     (async () => {
       setLoading(true);
       const weatherResult = await fetchWeather({ city_name: selectedCity });
@@ -42,20 +45,24 @@ export default function Home() {
     })();
   }, [selectedCity]);
 
-  const onItemSelect =
+  const onItemSelect = useCallback(
     (city: CityGeocode, { ref: inputRef, dispatch }: TypeaheadRenderContext) =>
-    () => {
-      const label = `${city.name}, ${city.country}`;
-      if (inputRef.current) inputRef.current.value = label;
-      setSelectedCity(city.name);
-      dispatch(false);
-    };
+      () => {
+        const label = `${city.name}, ${city.country}`;
+        if (inputRef.current) inputRef.current.value = label;
+        setSelectedCity(city.name);
+        // close the  dropdown
+        dispatch(false);
+      },
+    []
+  );
 
-  const onTypeaheadSubmit = (e: React.FormEvent) => {
+  const onTypeaheadSubmit = useCallback((e: React.FormEvent) => {
     e.preventDefault();
     const input = (e.target as Node).firstChild as HTMLInputElement;
     setSelectedCity(input.value);
-  };
+  }, []);
+
   return (
     <main>
       <div className="container">
@@ -130,26 +137,17 @@ export default function Home() {
                   </section>
                   <section>
                     <div className="grid">
-                      {[
+                      {toStats([
                         ["sunrise", fmt.time(weather.sys.sunrise), "Sunrise"],
                         ["sunset", fmt.time(weather.sys.sunset), "Sunset"],
-                      ].map(([icon, value, description], i) => (
-                        <Stat
-                          key={`stat-${i}`}
-                          {...{
-                            icon,
-                            value,
-                            description,
-                          }}
-                        />
-                      ))}
+                      ])}
                     </div>
                   </section>
                 </div>
                 <hr />
                 <section id="extra-info">
                   <div className="grid">
-                    {[
+                    {toStats([
                       ["wind", `${weather.wind.speed} m/s`, "Wind speed"],
                       [
                         "align-center",
@@ -166,16 +164,7 @@ export default function Home() {
                         fmt.percentage(weather.clouds.all),
                         "Cloud cover",
                       ],
-                    ].map(([icon, value, description], i) => (
-                      <Stat
-                        key={`stat-${i}`}
-                        {...{
-                          icon,
-                          value,
-                          description,
-                        }}
-                      />
-                    ))}
+                    ])}
                   </div>
                 </section>
               </>
