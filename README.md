@@ -20,6 +20,8 @@ Assumptions:
 | id  | *As a user, I can...*                               | _So that..._                                                 | Status |
 | --- | --------------------------------------------------- | ------------------------------------------------------------ | ------ |
 | 1.1 | See and select relevant suggestions for city names. | I can select the desired city without typing its whole name. |        |
+| 1.2 | Enter arbitrary Canadian cities.                    | I can see weather for anywhere in Canada.                    |        |
+
 
 ### 2. Viewing the weather report
 Assumptions:
