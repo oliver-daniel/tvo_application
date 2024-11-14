@@ -1,5 +1,4 @@
 import { CityGeocode } from "@/types/open-weather";
-import delay from "./delay";
 
 const URL = "/test_data/test_cities.json";
 
